@@ -1,0 +1,40 @@
+﻿@page "/empresas"
+@inject IEmpresasServices EmpresasServices
+
+<PageTitle>Empresas</PageTitle>
+
+<h3>Pagina das Empresas</h3>
+
+@if (EmpresasServices.Empresa == null)
+{
+    <p>Carregando...</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Nome da Empresa</th>
+                <th>Segmento</th>
+                <th>Site</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var empresa in EmpresasServices.Empresa)
+            {
+                <tr>
+                    <td>@empresa.NomeEmpresa</td>
+                    <td>@empresa.Segmento</td>
+                    <td>@empresa.Site</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await EmpresasServices.GetEmpresasDataAsync();
+    }
+}
